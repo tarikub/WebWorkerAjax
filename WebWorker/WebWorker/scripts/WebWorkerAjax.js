@@ -1,6 +1,6 @@
 ﻿// WebWorkerAjax:: Utility function to process ajax requests with HTML5 Web Worker 
 // Request params {URL:"", PostData: {}} e.g. {URL: '/Service/LongProcess', JSON.stringify({ input: "Test" }))
-// Adopted from http://stackoverflow.com/questions/2557247/easiest-way-to-retrieve-cross-browser-xmlhttprequest
+// Adapted from http://stackoverflow.com/questions/2557247/easiest-way-to-retrieve-cross-browser-xmlhttprequest
 var WebWorkerAjax = {
     processRequest: function (request) {
         var req = this.createXMLHTTPObject();
