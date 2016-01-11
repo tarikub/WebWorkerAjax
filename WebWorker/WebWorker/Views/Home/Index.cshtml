@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-offset-1 col-lg-11">
+        <h1>WebWorkerAjax</h1>
+        <p> MVC Web API Requests in Multi-threaded JS Web Worker</p>
+        <input class="form-inline" id="sendText" placeholder="Send Text" />
+        <button id="btnSendData" class="btn btn-primary">Send</button>
+        <br />
+        <div id="workerResponse"></div>
+    </div>
+</div>
+
+<script>
+    //Start Worker
+    var worker = new Worker("/scripts/WebWorkerAjax.js");
+    //Wire UI event
+    document.querySelector("#btnSendData").addEventListener("click", function () {
+        var postData = JSON.stringify({ input: document.querySelector("#sendText").value });
+        var request = { URL: "http://localhost:58286/home/LongProcess", PostData: postData };
+        worker.postMessage(request);
+        document.querySelector("#sendText").value = ""; // Clear input
+    });
+
+    worker.onmessage = function (e) {
+        // Worker responded with data
+        document.querySelector("#workerResponse").innerHTML = document.querySelector("#workerResponse").innerHTML + "Server response: " +  e.data + "<br />";
+    }
+</script>
